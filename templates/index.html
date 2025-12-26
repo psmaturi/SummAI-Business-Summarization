@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>SummAI – Hybrid Summarizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- jsPDF for PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="dark">
+
+<div class="app-wrapper">
+    <header class="app-header">
+        <div class="header-left">
+            <h1>SummAI</h1>
+            <p class="tagline">Hybrid Extractive + Abstractive Summarizer</p>
+        </div>
+        <div class="header-right">
+            <button id="themeToggle" class="theme-toggle">🌙 Dark</button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- INPUT SIDE -->
+        <section class="input-section">
+            <h2 class="section-title">Input</h2>
+
+            <form id="mainForm" method="POST" action="/" enctype="multipart/form-data">
+                <!-- Mode + length controls -->
+                <div class="controls-row">
+                    <div class="mode-toggle">
+                        <label>
+                            <input type="radio" name="summarize_mode" value="extractive"
+                                {% if selected_mode == 'extractive' %}checked{% endif %}>
+                            Extractive
+                        </label>
+                        <label>
+                            <input type="radio" name="summarize_mode" value="abstractive"
+                                {% if selected_mode == 'abstractive' %}checked{% endif %}>
+                            Abstractive
+                        </label>
+                    </div>
+
+                    <div class="length-select">
+                        <label for="summary_length">Length</label>
+                        <select id="summary_length" name="summary_length">
+                            <option value="short" {% if selected_length == 'short' %}selected{% endif %}>Short</option>
+                            <option value="medium" {% if selected_length == 'medium' %}selected{% endif %}>Medium</option>
+                            <option value="long" {% if selected_length == 'long' %}selected{% endif %}>Long</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Drag & drop + textarea -->
+                <div id="dropZone" class="drop-zone">
+                    <div class="drop-zone-top">
+                        <span>📝 Paste text or 📄 drag & drop a .txt/.pdf file here</span>
+                    </div>
+                    <textarea id="inputText" name="custom_text"
+                        placeholder="Paste your article, notes, or content here...">{{ input_text }}</textarea>
+
+                    <div class="drop-zone-actions">
+                        <button type="button" id="uploadTrigger" class="small-btn">📂 Upload file</button>
+                        <button type="button" id="clearBtn" class="small-btn">🗑 Clear</button>
+                    </div>
+                    <input type="file" id="fileInput" name="uploaded_file" class="hidden-file-input" accept=".txt,.pdf">
+                    <p id="fileName" class="file-name"></p>
+                </div>
+
+                <!-- Dataset article dropdown -->
+                
+
+                <button type="submit" class="main-btn">⚡ Summarize</button>
+            </form>
+        </section>
+
+        <!-- OUTPUT SIDE -->
+        <section class="output-section">
+            <div class="output-header">
+                <h2 class="section-title">Summary</h2>
+                <div class="download-buttons">
+                    <button type="button" id="downloadTxt" class="small-btn">⬇ TXT</button>
+                    <button type="button" id="downloadPdf" class="small-btn">⬇ PDF</button>
+                </div>
+            </div>
+
+            <div id="summaryBox" class="summary-box">
+                {% if summary_sentences and summary_sentences|length > 0 %}
+                    {% for s in summary_sentences %}
+                        <p class="summary-sentence {% if selected_mode == 'extractive' %}highlight{% endif %}">
+                            {{ s }}
+                        </p>
+                    {% endfor %}
+                {% elif summary %}
+                    <p>{{ summary }}</p>
+                {% else %}
+                    <p class="placeholder">Your summary will appear here…</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        SummAI · Flask + GenAI · Dark/Light · Downloadable
+    </footer>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+ 

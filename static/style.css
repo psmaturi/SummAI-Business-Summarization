@@ -1,0 +1,381 @@
+/* ===== Base ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Dark theme by default */
+body.dark {
+    background: radial-gradient(circle at top, #1b314f, #050814);
+    color: #f9fafb;
+}
+
+body.light {
+    background: #f3f4f8;
+    color: #111827;
+}
+
+/* App container */
+.app-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 18px;
+    padding: 22px 24px 18px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.dark .app-wrapper {
+    background: rgba(8, 12, 26, 0.96);
+}
+
+body.light .app-wrapper {
+    background: #ffffff;
+    border-color: rgba(15, 23, 42, 0.1);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.theme-toggle {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+body.dark .theme-toggle {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body.light .theme-toggle {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+/* Layout */
+.app-main {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Sections */
+.section-title {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+}
+
+.input-section,
+.output-section {
+    border-radius: 14px;
+    padding: 14px;
+}
+
+body.dark .input-section,
+body.dark .output-section {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+body.light .input-section,
+body.light .output-section {
+    background: #f9fafb;
+}
+
+/* Controls row */
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.mode-toggle label {
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.length-select label {
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.length-select select {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: transparent;
+    font-size: 0.85rem;
+}
+
+/* Drop zone */
+.drop-zone {
+    border-radius: 12px;
+    border: 2px dashed rgba(148, 163, 184, 0.7);
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.drop-zone.dragover {
+    border-color: #4f46e5;
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.drop-zone-top {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    outline: none;
+    font-size: 0.94rem;
+    line-height: 1.4;
+}
+
+body.dark textarea {
+    background: rgba(15, 23, 42, 0.95);
+    color: #f9fafb;
+}
+
+body.light textarea {
+    background: #ffffff;
+    color: #111827;
+}
+
+.drop-zone-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.file-name {
+    font-size: 0.78rem;
+    margin-top: 4px;
+    opacity: 0.8;
+}
+
+/* Buttons */
+.main-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    color: #f9fafb;
+}
+
+.small-btn {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    background: rgba(148, 163, 184, 0.2);
+}
+
+/* Dataset card */
+.dataset-card {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    font-size: 0.85rem;
+}
+
+.dataset-card select {
+    width: 100%;
+    margin-top: 4px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: transparent;
+}
+
+.small-label {
+    font-size: 0.8rem;
+}
+
+.hint {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Output */
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.summary-box {
+    min-height: 200px;
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    background: rgba(15, 23, 42, 0.85);
+    overflow-y: auto;
+}
+
+body.light .summary-box {
+    background: #ffffff;
+}
+
+.summary-sentence {
+    margin-bottom: 6px;
+}
+
+/* Highlight important sentences */
+.highlight {
+    background: rgba(250, 204, 21, 0.18);
+    border-radius: 6px;
+    padding: 2px 4px;
+}
+
+/* Placeholder */
+.placeholder {
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* Footer */
+.app-footer {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.85;
+}
+/* ===== Dark mode visibility fixes (override) ===== */
+
+body.dark {
+    color: #e5e7ff;
+}
+
+/* Section cards */
+body.dark .input-section,
+body.dark .output-section {
+    background: #020617; /* darker but clean */
+}
+
+/* Textarea */
+body.dark textarea {
+    background: #020617;
+    color: #e5e7ff;
+    border-color: rgba(148, 163, 184, 0.8);
+}
+
+body.dark textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* Labels + small text */
+body.dark label,
+body.dark .small-label,
+body.dark .hint,
+body.dark .drop-zone-top,
+body.dark .file-name {
+    color: #e5e7ff;
+    opacity: 0.85;
+}
+
+/* Selects + options */
+body.dark select {
+    background: #020617;
+    color: #e5e7ff;
+    border-color: rgba(148, 163, 184, 0.8);
+}
+
+body.dark option {
+    background: #020617;
+    color: #e5e7ff;
+}
+
+/* Small buttons (Upload / Clear / TXT / PDF) */
+body.dark .small-btn {
+    background: rgba(148, 163, 184, 0.25);
+    color: #e5e7ff;
+}
+
+/* Drop zone border + bg */
+body.dark .drop-zone {
+    border-color: rgba(148, 163, 184, 0.9);
+}
+
+body.dark .drop-zone.dragover {
+    background: rgba(79, 70, 229, 0.22);
+}
+
+/* Summary box */
+body.dark .summary-box {
+    background: #020617;
+    border-color: rgba(148, 163, 184, 0.9);
+    color: #e5e7ff;
+}
+
+/* Highlighted sentences */
+body.dark .highlight {
+    background: rgba(250, 204, 21, 0.22);
+}
+
+/* Radio/checkbox text */
+body.dark .mode-toggle label {
+    color: #e5e7ff;
+}
